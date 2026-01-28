@@ -1,0 +1,35 @@
+#!/bin/sh
+# Send video clip to Telegram
+# Usage: send2telegram-video [-c chat_id] [-t duration]
+
+. /etc/webui/telegram.conf
+[ "false" = "$telegram_enabled" ] && die "Sending to Telegram is disabled."
+
+duration=10
+chat_id=${telegram_channel}
+
+# Parse args
+while getopts "c:t:" flag; do
+    case "$flag" in
+        c) chat_id=$OPTARG ;;
+        t) duration=$OPTARG ;;
+    esac
+done
+
+[ -z "$telegram_token" ] && echo "No telegram token" && exit 1
+[ -z "$chat_id" ] && echo "No chat_id" && exit 1
+
+# Record video (lower resolution for faster upload)
+clip=/tmp/clip_$$.mp4
+echo "Recording ${duration}s clip..."
+openRTSP -u thingino thingino -w 640 -h 360 -f 15 -d $duration -4 -y -H -b 524288 -t rtsp://127.0.0.1/ch0 > $clip 2>/dev/null
+
+# Send to Telegram with timeout
+echo "Sending to Telegram..."
+curl --connect-timeout 10 --max-time 60 -s -X POST "https://api.telegram.org/bot${telegram_token}/sendVideo" \
+    -F "chat_id=${chat_id}" \
+    -F "video=@${clip}" \
+    -F "caption=$(hostname -s) $(date +%F\ %T)"
+
+rm -f $clip
+echo "Done"

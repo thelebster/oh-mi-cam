@@ -1,0 +1,47 @@
+#!/bin/sh
+# Motion detection handler script
+# Modified to send video clips via send2telegram-video
+# Backup location on camera: /sbin/motion.orig
+
+plugin="motion"
+
+. /sbin/common-plugins
+singleton
+
+MOTION_ALARM="/run/motion/motion_alarm"
+MOTION_ALARM_DIR=$(dirname $MOTION_ALARM)
+[ -d $MOTION_ALARM_DIR ] || mkdir -p $MOTION_ALARM_DIR
+
+MOTION_STOP_FILE="/run/motors.pid"
+
+start() {
+	[ -f $MOTION_STOP_FILE ] && exit 0
+
+	touch $MOTION_ALARM
+
+	[ "true" = "$motion_send2email"    ] && send2email
+	[ "true" = "$motion_send2ftp"      ] && send2ftp
+	[ "true" = "$motion_send2mqtt"     ] && send2mqtt
+	[ "true" = "$motion_send2telegram" ] && send2telegram
+	[ "true" = "$motion_send2webhook"  ] && send2webhook
+	[ "true" = "$motion_send2yadisk"   ] && send2yadisk
+	[ "true" = "$motion_playonspeaker" ] && playonspeaker
+
+	# Send video clip on motion
+	[ "true" = "$motion_send2telegram_video" ] && /sbin/send2telegram-video -t ${motion_video_duration:-10} &
+}
+
+stop() {
+	[ -f $MOTION_ALARM ] && rm -f $MOTION_ALARM
+}
+
+case "$1" in
+	start | stop)
+		$1
+		;;
+	*)
+		start
+		;;
+esac
+
+quit_clean 0
