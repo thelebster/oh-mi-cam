@@ -59,6 +59,8 @@ Insert and power on. See [Wi-Fi Access](https://github.com/themactep/thingino-fi
 |---------|-------------|
 | `/snap` | Take and send a photo |
 | `/clip` | Record and send 10s video |
+| `/motion_on` | Enable motion detection |
+| `/motion_off` | Disable motion detection |
 | `/info` | System information |
 | `/diag` | Diagnostic info |
 
@@ -100,7 +102,7 @@ Restart the bot:
 |---------|--------|
 | RTSP streaming | ✅ |
 | Telegram commands | ✅ |
-| Motion → video | ✅ (10s clip, 640x360) |
+| Motion → video | ✅ (10s clip, 2304x1296) |
 | Motion → photo | ❌ Disabled |
 | Continuous recording | ❌ Disabled |
 
@@ -131,6 +133,8 @@ Restart the bot:
 | [`/sbin/send2telegram-video`](scripts/send2telegram-video) | Record and send video to Telegram |
 | [`/sbin/clip2telegram`](scripts/clip2telegram) | Wrapper for /clip command |
 | [`/sbin/motion`](scripts/motion) | Modified to send video on motion |
+| [`/sbin/motion-on`](scripts/motion-on) | Enable motion detection |
+| [`/sbin/motion-off`](scripts/motion-off) | Disable motion detection |
 
 ## Makefile
 
@@ -208,6 +212,8 @@ ssh root@oh-mi-cam.local cp /sbin/motion /sbin/motion.orig
 scp -O scripts/motion root@oh-mi-cam.local:/sbin/
 scp -O scripts/clip2telegram root@oh-mi-cam.local:/sbin/
 scp -O scripts/send2telegram-video root@oh-mi-cam.local:/sbin/
+scp -O scripts/motion-on root@oh-mi-cam.local:/sbin/
+scp -O scripts/motion-off root@oh-mi-cam.local:/sbin/
 ```
 
 ### Check Logs

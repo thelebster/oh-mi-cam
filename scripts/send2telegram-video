@@ -19,10 +19,10 @@ done
 [ -z "$telegram_token" ] && echo "No telegram token" && exit 1
 [ -z "$chat_id" ] && echo "No chat_id" && exit 1
 
-# Record video (lower resolution for faster upload)
+# Record video from ch0 (main stream)
 clip=/tmp/clip_$$.mp4
 echo "Recording ${duration}s clip..."
-openRTSP -u thingino thingino -w 640 -h 360 -f 15 -d $duration -4 -y -H -b 524288 -t rtsp://127.0.0.1/ch0 > $clip 2>/dev/null
+openRTSP -u thingino thingino -w 2304 -h 1296 -d $duration -4 -y -H -b 524288 -t rtsp://127.0.0.1/ch0 > $clip 2>/dev/null
 
 # Send to Telegram with timeout
 echo "Sending to Telegram..."
