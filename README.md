@@ -61,6 +61,7 @@ Insert and power on. See [Wi-Fi Access](https://github.com/themactep/thingino-fi
 | `/clip` | Record and send 10s video |
 | `/motion_on` | Enable motion detection |
 | `/motion_off` | Disable motion detection |
+| `/restart` | Restart streaming service |
 | `/info` | System information |
 | `/diag` | Diagnostic info |
 
@@ -135,6 +136,7 @@ Restart the bot:
 | [`/sbin/motion`](scripts/motion) | Modified to send video on motion |
 | [`/sbin/motion-on`](scripts/motion-on) | Enable motion detection |
 | [`/sbin/motion-off`](scripts/motion-off) | Disable motion detection |
+| [`/sbin/restart-prudynt`](scripts/restart-prudynt) | Restart streaming service |
 
 ## Makefile
 
@@ -214,6 +216,7 @@ scp -O scripts/clip2telegram root@oh-mi-cam.local:/sbin/
 scp -O scripts/send2telegram-video root@oh-mi-cam.local:/sbin/
 scp -O scripts/motion-on root@oh-mi-cam.local:/sbin/
 scp -O scripts/motion-off root@oh-mi-cam.local:/sbin/
+scp -O scripts/restart-prudynt root@oh-mi-cam.local:/sbin/
 ```
 
 ### Check Logs

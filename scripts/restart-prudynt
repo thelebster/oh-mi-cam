@@ -1,0 +1,4 @@
+#!/bin/sh
+# Restart prudynt streaming service
+/etc/init.d/S95prudynt restart >/dev/null 2>&1
+echo "Prudynt restarted"
