@@ -22,7 +22,7 @@ done
 # Record video from ch0 (main stream)
 clip=/tmp/clip_$$.mp4
 echo "Recording ${duration}s clip..."
-openRTSP -u thingino thingino -w 2304 -h 1296 -d $duration -4 -y -H -b 524288 -t rtsp://127.0.0.1/ch0 > $clip 2>/dev/null
+openRTSP -u thingino thingino -w 2304 -h 1296 -d $duration -D 10 -4 -y -H -b 524288 -t rtsp://127.0.0.1/ch0 > $clip 2>/dev/null
 
 # Send to Telegram with timeout
 echo "Sending to Telegram..."

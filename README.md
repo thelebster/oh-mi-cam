@@ -2,7 +2,7 @@
 
 Personal experiments with open source firmware on Xiaomi Mi Camera 2K (MJSXJ03HL).
 
-![Thingino firmware login banner](images/ssh-terminal.png)
+![Thingino firmware login banner](images/ssh-terminal-dark.png)
 
 ## Hardware
 
