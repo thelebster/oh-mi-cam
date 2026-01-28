@@ -32,4 +32,4 @@ curl --connect-timeout 10 --max-time 60 -s -X POST "https://api.telegram.org/bot
     -F "caption=$(hostname -s) $(date +%F\ %T)"
 
 rm -f $clip
-echo "Done"
+echo -e "\nDone"

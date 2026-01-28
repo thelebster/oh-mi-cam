@@ -3,4 +3,4 @@
 . /etc/webui/motion.conf
 duration=${motion_video_duration:-10}
 echo "Recording ${duration}s clip..."
-/sbin/send2telegram-video -t $duration >> /tmp/clip.log 2>&1 &
+/sbin/send2telegram-video -t $duration > /tmp/clip.log 2>&1 &
