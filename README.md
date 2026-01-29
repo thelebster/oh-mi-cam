@@ -67,7 +67,7 @@ Insert and power on. See [Wi-Fi Access](https://github.com/themactep/thingino-fi
 
 ### Enable Telegram
 
-Get your bot token from [@BotFather](https://t.me/BotFather). For chat ID, send a message to your bot then check `https://api.telegram.org/bot<TOKEN>/getUpdates`.
+Get your bot token from [@BotFather](https://t.me/BotFather). For chat ID, send a message to your bot then run `make tg-get-chat-id` (or check `https://api.telegram.org/bot<TOKEN>/getUpdates`).
 
 **Web UI:**
 
@@ -148,7 +148,11 @@ make ssh       # SSH into camera
 make snap      # Send photo
 make clip      # Send 10s video
 make logs      # Show last clip log
-make deploy    # Deploy scripts to camera
+
+make deploy          # Deploy scripts to camera
+make config-deploy   # Deploy config files (substitutes env vars)
+make config-backup   # Backup config files from camera
+make config-dry-run  # Preview config substitution
 
 make motion-on/off   # Toggle motion detection
 make photo-on/off    # Toggle photo on motion
@@ -156,6 +160,8 @@ make video-on/off    # Toggle video on motion
 
 make sensitivity-1/2/3/4/5   # Set sensitivity (1=lowest)
 make cooldown-15/30/60       # Set cooldown in seconds
+
+make tg-get-chat-id  # Get Telegram chat ID (send message to bot first)
 ```
 
 ## SSH Commands
@@ -217,6 +223,31 @@ scp -O scripts/send2telegram-video root@oh-mi-cam.local:/sbin/
 scp -O scripts/motion-on root@oh-mi-cam.local:/sbin/
 scp -O scripts/motion-off root@oh-mi-cam.local:/sbin/
 scp -O scripts/restart-prudynt root@oh-mi-cam.local:/sbin/
+```
+
+### Deploy Config
+
+Config files use `${VAR}` placeholders for sensitive values. Create `.env` from the example:
+
+```sh
+cp .env.example .env
+# Edit .env with your Telegram credentials
+```
+
+Then deploy with automatic substitution:
+
+```sh
+make config-deploy   # Deploy with env var substitution
+make config-dry-run  # Preview substitution without deploying
+make config-backup   # Backup current configs from camera
+```
+
+**Manual deploy** (without substitution):
+
+```sh
+scp -O config/telegram.conf root@oh-mi-cam.local:/etc/webui/
+scp -O config/telegrambot.conf root@oh-mi-cam.local:/etc/webui/
+ssh root@oh-mi-cam.local /etc/init.d/S93telegrambot restart
 ```
 
 ### Check Logs
