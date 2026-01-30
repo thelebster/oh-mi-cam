@@ -1,0 +1,27 @@
+#!/bin/sh
+# Send text-only motion notification to Telegram
+# Usage: send2telegram-text [-c chat_id]
+
+. /etc/webui/telegram.conf
+
+# Parse arguments
+while [ -n "$1" ]; do
+    case "$1" in
+        -c) chat_id="$2"; shift 2 ;;
+        *) shift ;;
+    esac
+done
+
+# Use channel from config if not specified
+[ -z "$chat_id" ] && chat_id="$telegram_channel"
+
+timestamp=$(date "+%Y-%m-%d %H:%M:%S")
+
+message="🚨 Motion detected at $timestamp"
+
+curl -s -X POST "https://api.telegram.org/bot${telegram_token}/sendMessage" \
+    -d "chat_id=${chat_id}" \
+    -d "text=${message}" \
+    -d "parse_mode=HTML" > /dev/null 2>&1
+
+exit 0

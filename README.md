@@ -113,6 +113,7 @@ Restart the bot:
 |---------|--------|
 | RTSP streaming | ✅ |
 | Telegram commands | ✅ |
+| Motion → text | ✅ (instant alert) |
 | Motion → video | ✅ (10s clip, 2304x1296) |
 | Motion → photo | ❌ Disabled |
 | Continuous recording | ❌ Disabled |
@@ -140,6 +141,7 @@ Restart the bot:
 **Motion Notifications settings** (`/etc/webui/motion.conf`):
 - `motion_send2telegram="false"`
 - `motion_send2telegram_video="true"`
+- `motion_send2telegram_text="true"`
 - `motion_video_duration="10"`
 
 ## Custom Scripts
@@ -147,6 +149,7 @@ Restart the bot:
 | Script | Purpose |
 |--------|---------|
 | [`/sbin/send2telegram-video`](scripts/send2telegram-video) | Record and send video to Telegram |
+| [`/sbin/send2telegram-text`](scripts/send2telegram-text) | Send text-only notification to Telegram |
 | [`/sbin/clip2telegram`](scripts/clip2telegram) | Wrapper for /clip command |
 | [`/sbin/motion`](scripts/motion) | Modified to send video on motion |
 | [`/sbin/motion-on`](scripts/motion-on) | Enable motion detection |
@@ -174,6 +177,7 @@ make config-dry-run  # Preview config substitution
 make motion-on/off   # Toggle motion detection
 make photo-on/off    # Toggle photo on motion
 make video-on/off    # Toggle video on motion
+make text-on/off     # Toggle text alert on motion
 
 make sensitivity-1/2/3/4/5   # Set sensitivity (1=lowest)
 make cooldown-15/30/60       # Set cooldown in seconds
@@ -237,6 +241,7 @@ ssh root@oh-mi-cam.local cp /sbin/motion /sbin/motion.orig
 scp -O scripts/motion root@oh-mi-cam.local:/sbin/
 scp -O scripts/clip2telegram root@oh-mi-cam.local:/sbin/
 scp -O scripts/send2telegram-video root@oh-mi-cam.local:/sbin/
+scp -O scripts/send2telegram-text root@oh-mi-cam.local:/sbin/
 scp -O scripts/motion-on root@oh-mi-cam.local:/sbin/
 scp -O scripts/motion-off root@oh-mi-cam.local:/sbin/
 scp -O scripts/restart-prudynt root@oh-mi-cam.local:/sbin/

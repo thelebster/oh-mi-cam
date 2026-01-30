@@ -27,7 +27,10 @@ start() {
 	[ "true" = "$motion_send2yadisk"   ] && send2yadisk
 	[ "true" = "$motion_playonspeaker" ] && playonspeaker
 
-	# Send video clip on motion
+	# Send text-only notification on motion (instant alert)
+	[ "true" = "$motion_send2telegram_text" ] && /sbin/send2telegram-text &
+
+	# Send video clip on motion (takes longer to record)
 	[ "true" = "$motion_send2telegram_video" ] && /sbin/send2telegram-video -t ${motion_video_duration:-10} &
 }
 

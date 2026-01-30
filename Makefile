@@ -14,7 +14,7 @@ PRUDYNT = /etc/prudynt.cfg
 MOTION_CONF = /etc/webui/motion.conf
 
 .PHONY: help status ssh restart snap clip logs deploy config-deploy config-backup config-dry-run tg-get-chat-id \
-        motion-on motion-off photo-on photo-off video-on video-off \
+        motion-on motion-off photo-on photo-off video-on video-off text-on text-off \
         sensitivity-1 sensitivity-2 sensitivity-3 sensitivity-4 sensitivity-5 \
         cooldown-15 cooldown-30 cooldown-60
 
@@ -75,6 +75,14 @@ video-on:
 video-off:
 	$(SSH) "sed -i 's/motion_send2telegram_video=\"true\"/motion_send2telegram_video=\"false\"/' $(MOTION_CONF)"
 
+## text-on    : Enable text-only notification on motion.
+text-on:
+	$(SSH) "sed -i 's/motion_send2telegram_text=\"false\"/motion_send2telegram_text=\"true\"/' $(MOTION_CONF)"
+
+## text-off   : Disable text-only notification on motion.
+text-off:
+	$(SSH) "sed -i 's/motion_send2telegram_text=\"true\"/motion_send2telegram_text=\"false\"/' $(MOTION_CONF)"
+
 ## sensitivity-1 : Set sensitivity to 1 (lowest).
 sensitivity-1:
 	$(SSH) "sed -i 's/sensitivity = [0-9];/sensitivity = 1;/' $(PRUDYNT); /etc/init.d/S95prudynt restart"
@@ -116,6 +124,7 @@ deploy:
 	$(SCP) scripts/motion $(CAMERA_USER)@$(CAMERA_HOST):/sbin/
 	$(SCP) scripts/clip2telegram $(CAMERA_USER)@$(CAMERA_HOST):/sbin/
 	$(SCP) scripts/send2telegram-video $(CAMERA_USER)@$(CAMERA_HOST):/sbin/
+	$(SCP) scripts/send2telegram-text $(CAMERA_USER)@$(CAMERA_HOST):/sbin/
 
 ## config-deploy : Deploy config files to camera.
 config-deploy:
