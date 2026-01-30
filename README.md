@@ -2,7 +2,7 @@
 
 Personal experiments with open source firmware on Xiaomi Mi Camera 2K (MJSXJ03HL).
 
-![Thingino firmware login banner](images/ssh-terminal-dark.png)
+![Thingino firmware login banner](assets/images/ssh-terminal-dark.png)
 
 ## Hardware
 
@@ -123,11 +123,13 @@ Restart the bot:
 
 **Web UI** — camera preview at `http://oh-mi-cam.local`
 
-![Web UI camera preview](images/webui-preview.png)
+![Web UI camera preview](assets/images/webui-preview.png)
 
 **Telegram** — motion alert with video clip
 
-![Telegram motion notification](images/telegram-motion.png)
+![Telegram motion notification](assets/images/telegram-motion.png)
+
+![Sample motion clip](assets/images/motion-clip.gif)
 
 ## Configuration Files
 
