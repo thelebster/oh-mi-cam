@@ -133,6 +133,10 @@ Restart the bot:
 - `sensitivity = 5`
 - `cooldown_time = 30`
 
+**Stream settings** (`/etc/prudynt.cfg`):
+- `bitrate = 1500` (optimized for smaller files)
+- `gop = 50` (fewer keyframes)
+
 **Motion Notifications settings** (`/etc/webui/motion.conf`):
 - `motion_send2telegram="false"`
 - `motion_send2telegram_video="true"`
