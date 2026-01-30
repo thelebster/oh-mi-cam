@@ -119,6 +119,16 @@ Restart the bot:
 | Continuous recording | ❌ Disabled |
 | SD card boot scripts | ✅ (WiFi/AP config via uenv.txt) |
 
+## What It Looks Like
+
+**Web UI** — camera preview at `http://oh-mi-cam.local`
+
+![Web UI camera preview](images/webui-preview.png)
+
+**Telegram** — motion alert with video clip
+
+![Telegram motion notification](images/telegram-motion.png)
+
 ## Configuration Files
 
 | File | Purpose |
