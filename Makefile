@@ -37,6 +37,10 @@ ssh:
 restart:
 	$(SSH) "/etc/init.d/S95prudynt restart"
 
+## reboot  : Reboot camera.
+reboot:
+	$(SSH) "reboot"
+
 ## snap    : Send photo.
 snap:
 	$(SSH) "send2telegram -i"
@@ -131,6 +135,7 @@ config-backup:
 	$(SCP) $(CAMERA_USER)@$(CAMERA_HOST):/etc/webui/telegram.conf config/telegram.conf.orig
 	$(SCP) $(CAMERA_USER)@$(CAMERA_HOST):/etc/webui/telegrambot.conf config/telegrambot.conf.orig
 	$(SCP) $(CAMERA_USER)@$(CAMERA_HOST):/etc/webui/record.conf config/record.conf.orig
+	$(SSH) "fw_printenv" > config/uenv.txt.orig
 
 ## tg-get-chat-id : Get chat ID from recent messages (send a message to bot first).
 tg-get-chat-id:

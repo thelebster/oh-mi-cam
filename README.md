@@ -44,14 +44,24 @@ reboot
 
 **Via SD card** (no network access needed):
 
-Create `uenv.txt` on FAT32 SD card:
+Copy `scripts/sdcard/run.sh` and `scripts/sdcard/uenv.txt` to SD card root (FAT32/exFAT).
+
+Edit `uenv.txt` with your settings:
 
 ```
 wlanssid=YourNetworkName
 wlanpass=YourPassword
 ```
 
-Insert and power on. See [Wi-Fi Access](https://github.com/themactep/thingino-firmware/wiki/Configuration:-Wi%E2%80%90Fi-Access) for details.
+Or enable/disable AP mode:
+
+```
+wlanap_enabled=true
+```
+
+Insert and power on. The `run.sh` script loads env vars on every boot via the camera's automount feature.
+
+See [Wi-Fi Access](https://github.com/themactep/thingino-firmware/wiki/Configuration:-Wi%E2%80%90Fi-Access) for details.
 
 ## Telegram Bot
 
@@ -106,6 +116,7 @@ Restart the bot:
 | Motion → video | ✅ (10s clip, 2304x1296) |
 | Motion → photo | ❌ Disabled |
 | Continuous recording | ❌ Disabled |
+| SD card boot scripts | ✅ (WiFi/AP config via uenv.txt) |
 
 ## Configuration Files
 
@@ -137,6 +148,8 @@ Restart the bot:
 | [`/sbin/motion-on`](scripts/motion-on) | Enable motion detection |
 | [`/sbin/motion-off`](scripts/motion-off) | Disable motion detection |
 | [`/sbin/restart-prudynt`](scripts/restart-prudynt) | Restart streaming service |
+| [`scripts/sdcard/run.sh`](scripts/sdcard/run.sh) | Load env vars from SD card on boot |
+| [`scripts/sdcard/uenv.txt`](scripts/sdcard/uenv.txt) | Template for WiFi/AP settings |
 
 ## Makefile
 

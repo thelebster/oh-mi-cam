@@ -1,0 +1,11 @@
+# U-Boot environment variables
+# Loaded by run.sh every boot - edit and reboot to apply
+
+# WiFi credentials (2.4GHz only, case-sensitive)
+#wlanssid=YourNetworkName
+#wlanpass=YourPassword
+
+# Access Point mode
+#wlanap_enabled=true
+#wlanap_ssid=thingino-ap
+#wlanap_pass=thingino
