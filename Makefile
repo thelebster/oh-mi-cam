@@ -33,9 +33,10 @@ status:
 ssh:
 	$(SSH)
 
-## restart : Restart streaming.
+## restart : Restart streaming and Telegram bot.
 restart:
-	$(SSH) "/etc/init.d/S95prudynt restart"
+	$(SSH) "/etc/init.d/S95prudynt restart; \
+		/etc/init.d/S93telegrambot restart"
 
 ## reboot  : Reboot camera.
 reboot:

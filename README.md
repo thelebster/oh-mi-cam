@@ -177,6 +177,8 @@ Quick commands (run `make help` for full list):
 ```sh
 make status    # Show camera settings
 make ssh       # SSH into camera
+make restart   # Restart streaming and Telegram bot
+make reboot    # Reboot camera
 make snap      # Send photo
 make clip      # Send 10s video
 make logs      # Show last clip log
